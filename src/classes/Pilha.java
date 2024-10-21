@@ -5,21 +5,13 @@ import interfaces.Pilha_IF;
 
 public class Pilha implements Pilha_IF {
 
-    private No topo;
+    private Node top;
     private int tamanho;
 
-    private class No {
-        Filme_IF elemento;
-        No proximo;
-        No anterior;
 
-        public No(Filme_IF elemento){
-            this.elemento = elemento;
-        }
-    }
 
     public Pilha (){
-        topo = null;
+        top = null;
         tamanho = 0;
     }
 
@@ -28,10 +20,10 @@ public class Pilha implements Pilha_IF {
         if (isEmpty()){
             throw new Exception("A pilha está vazia.");
         }
-        Filme_IF elementoRemovido = topo.elemento;
-        topo = topo.anterior;
-        if (topo != null){
-            topo.proximo = null;
+        Filme_IF elementoRemovido = top.film;
+        top = top.left;
+        if (top != null){
+            top.right = null;
         }
         tamanho--;
         return elementoRemovido;
@@ -40,21 +32,21 @@ public class Pilha implements Pilha_IF {
     @Override
     public void push(Filme_IF elemento) {
 
-        No novoNo = new No(elemento); //o novo elemento que será empilhado.
+        Node newNode = new Node(elemento); //o novo elemento que será empilhado.
 
         if (isEmpty()){
-            topo = novoNo; //se a pilha estiver vazia não tem elementos para serem ligados então so é definido o topo.
+            top = newNode; //se a pilha estiver vazia não tem elementos para serem ligados então so é definido o topo.
         } else {
-            novoNo.anterior = topo; //aqui caso exista um ou mais elementos, ligamos o novo nó ao topo da pilha
-            topo.proximo = novoNo; // ligamos o topo da pilha ao novo nó, e por fim atualizamos o valor do topo.
-            topo = novoNo;
+            newNode.left = top; //aqui caso exista um ou mais elementos, ligamos o novo nó ao topo da pilha
+            top.right = newNode; // ligamos o topo da pilha ao novo nó, e por fim atualizamos o valor do topo.
+            top = newNode;
         }
         tamanho++; //como um elemento foi inserido a pilha aumenta em 1.
     }
 
     @Override
     public boolean isEmpty() {
-        return topo == null;
+        return top == null;
     }
 
     @Override
@@ -64,6 +56,6 @@ public class Pilha implements Pilha_IF {
             throw new Exception("A pilha está vazia.");
         }
 
-        return topo.elemento;
+        return top.film;
     }
 }

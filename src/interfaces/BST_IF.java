@@ -17,7 +17,7 @@ public interface BST_IF  {
 
     public int height();
 
-    public int size();
+    public int size() throws Exception;
 
     public boolean isComplete();
 
