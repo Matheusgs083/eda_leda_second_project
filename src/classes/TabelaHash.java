@@ -3,7 +3,7 @@ package classes;
 import interfaces.Filme_IF;
 import interfaces.TabelaHash_IF;
 
-public class TabelaHahs implements TabelaHash_IF {
+public class TabelaHash implements TabelaHash_IF {
     @Override
     public Filme_IF remove(long id) throws Exception {
         return null;
