@@ -128,4 +128,8 @@ public class Lista implements Lista_IF {
         size -= 1;
         return v;
     }
+
+    public Node getHead() {
+        return this.head;
+    }
 }
