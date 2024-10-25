@@ -1,13 +1,20 @@
 import classes.Filme;
+import classes.TabelaHash;
 
 public class Main{
     public static void main(String[] args){
-        Filme Teste = new Filme();
-        Filme Teste2 = new Filme();
-        Filme Teste3 = new Filme();
 
-        System.out.println(Teste);
-        System.out.println(Teste2);
-        System.out.println(Teste3);
+        TabelaHash table = new TabelaHash(10);
+
+        for (int i = 0; i < 60; i++){
+            Filme filme = new Filme();
+            table.insert(filme);
+        }
+
+        System.out.println("IDs dos filmes disponíveis:");
+        System.out.println(table.print());
+
+
+
     }
 }

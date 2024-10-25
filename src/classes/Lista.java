@@ -17,28 +17,25 @@ public class Lista implements Lista_IF {
     }
     @Override
     public Filme_IF remove(long id) throws Exception {
-        Node aux = this.head;
-        Filme_IF removedFilm = aux.film;
+        Node current = head;
+        Node previous = null;
 
-        for (int i = 0; i < this.size; i++) {
-            if (aux.film.getID() == id) {
-                if (i == 0) removeFirst();
-                else if (i == size - 1) removeLast();
-                else {
-                    aux.left.right = aux.right;
-                    aux.right.left = aux.left;
-                    size -= 1;
-                }
-                break;
-            }
-            aux = aux.right;
+        while (current != null && current.film.getID() != id) {
+            previous = current;
+            current = current.right;
         }
 
-        if (removedFilm == null){
-            throw new Exception("Filme com o ID " + id + " não encontrado");
+        if (current == null) {
+            return null;
         }
 
-        return removedFilm;
+        if (previous == null) {
+            head = current.right;
+        } else {
+            previous.right = current.right;
+        }
+
+        return current.film;
     }
 
     //Levando em conta que só tem um insert, o filme é adicionado no final da lista.

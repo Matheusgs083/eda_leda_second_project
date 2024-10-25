@@ -8,6 +8,17 @@ public class TabelaHash implements TabelaHash_IF {
     private Lista[] tabela;
     private int size;
 
+    public TabelaHash(int capacidade) {
+
+        this.tabela = new Lista[capacidade];
+
+        for (int i = 0; i < capacidade; i++){
+            tabela[i] = new Lista();
+        }
+
+        this.size = 0;
+    }
+
     private int hash(long chave) {
         return (int) (chave % this.tabela.length);
     }
