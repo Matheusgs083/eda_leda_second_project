@@ -7,7 +7,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Filme implements Filme_IF, Comparable<Filme_IF> {
 
-    private static long contador = 0;
     private long ID;
     private String nome;
     private int nota;
@@ -20,7 +19,7 @@ public class Filme implements Filme_IF, Comparable<Filme_IF> {
         this.nome = nome;
         this.nota = nota;
         this.ano = ano;
-        this.ID = contador++;
+        this.ID = ID_Generator.generateUniqueID();
     }
 
     public Filme(){
@@ -29,7 +28,7 @@ public class Filme implements Filme_IF, Comparable<Filme_IF> {
         this.nome = Titulos[rand.nextInt(Titulos.length)] + SubTitulos[rand.nextInt(SubTitulos.length)];
         this.ano = rand.nextInt(1980, 2025); // Gera um ano aleatório entre 1980 e 2024
         this.nota = rand.nextInt(1, 6); // Gera uma nota aleatória entre 1 e 5 (inclusive)
-        this.ID = contador++;
+        this.ID = ID_Generator.generateUniqueID();
     }
 
     @Override
@@ -79,14 +78,16 @@ public class Filme implements Filme_IF, Comparable<Filme_IF> {
 
     @Override
     public int compareTo(Filme_IF outro_filme) {
-        if (this.nota != outro_filme.getNota()){
+
+        if (this.nota != outro_filme.getNota()) {
             return Integer.compare(outro_filme.getNota(), this.nota);
         }
         else if (this.ano != outro_filme.getAno()) {
-            return Long.compare(this.ano, outro_filme.getAno());
+            return Integer.compare(this.ano, outro_filme.getAno());
         }
-        else {
+        else if (!this.nome.equals(outro_filme.getNome())) {
             return this.nome.compareTo(outro_filme.getNome());
         }
+        return Long.compare(this.ID, outro_filme.getID());
     }
 }
