@@ -3,46 +3,56 @@ import interfaces.*;
 
 public class Main {
     public static void main(String[] args) {
-        BST bst = new BST();
+        try {
+            // Cria a árvore binária de busca
+            BST bst = new BST();
 
-        // Criando filmes com valores definidos (não aleatórios)
-        Filme_IF filme1 = new Filme("Era do Gelo", 4, 2002);
-        Filme_IF filme2 = new Filme("Piratas do Caribe", 5, 2003);
-        Filme_IF filme3 = new Filme("Rei Leão", 3, 1994);
-        Filme_IF filme4 = new Filme("Velozes e Furiosos", 4, 2001);
-        Filme_IF filme5 = new Filme("Mad Max", 5, 2015);
+            // Criação de alguns filmes
+            Filme_IF filme1 = new Filme("Velozes e Furiosos", 4, 2001, 15);
+            Filme_IF filme2 = new Filme("O Senhor dos Anéis", 5, 2001, 10);
+            Filme_IF filme3 = new Filme("Matrix", 5, 1999, 20);
+            Filme_IF filme4 = new Filme("Star Wars", 4, 1977, 5);
+            Filme_IF filme5 = new Filme("Interstellar", 5, 2014, 30);
 
-        // Inserindo os filmes na árvore BST
-        bst.insert(filme1);
-        bst.insert(filme2);
-        bst.insert(filme3);
-        bst.insert(filme4);
-        bst.insert(filme5);
+            // Inserindo filmes na árvore
+            bst.insert(filme1);
+            bst.insert(filme2);
+            bst.insert(filme3);
+            bst.insert(filme4);
+            bst.insert(filme5);
 
-        // Imprimindo os filmes inseridos
-        System.out.println("Filmes inseridos:");
-        System.out.println(filme1);
-        System.out.println(filme2);
-        System.out.println(filme3);
-        System.out.println(filme4);
-        System.out.println(filme5);
+            // Exibindo o tamanho da árvore
+            System.out.println("Tamanho da árvore: " + bst.size());
 
-        Filme_IF[] preOrderArray = bst.preOrder();
-        System.out.println("\nTravessia Pré-Ordem:");
-        for (Filme_IF filme : preOrderArray) {
-            System.out.println(filme);
-        }
+            // Buscando um filme
+            long searchId = 20;
+            Filme_IF searchedFilm = bst.search(searchId);
+            System.out.println("Filme encontrado: " + searchedFilm);
 
-        Filme_IF[] postOrderArray = bst.postOrder();
-        System.out.println("\nTravessia Post-Ordem:");
-        for (Filme_IF filme : postOrderArray) {
-            System.out.println(filme);
-        }
+            // Removendo um filme
+            long removeId = 10;
+            Filme_IF removedFilm = bst.remove(removeId);
+            System.out.println("Filme removido: " + removedFilm);
 
-        Filme_IF[] OrderArray = bst.order();
-        System.out.println("\nTravessia In-Ordem:");
-        for (Filme_IF filme : OrderArray) {
-            System.out.println(filme);
+            // Tentando buscar um filme removido
+            try {
+                bst.search(removeId);
+            } catch (Exception e) {
+                System.out.println(e.getMessage()); // Exibindo a exceção
+            }
+
+            // Exibindo o tamanho da árvore após remoção
+            System.out.println("Tamanho da árvore após remoção: " + bst.size());
+
+            // Exibindo todos os filmes na ordem
+            Filme_IF[] allFilms = bst.order();
+            System.out.println("Filmes na árvore (em ordem):");
+            for (Filme_IF filme : allFilms) {
+                System.out.println(filme);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

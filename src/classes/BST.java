@@ -12,31 +12,43 @@ public class BST implements BST_IF {
 
     @Override
     public Filme_IF remove(long id) throws Exception {
-        root = rec_Remove(root, id);
-        return null;
+        Filme_IF[] removedFilm = new Filme_IF[1];  // Usamos um array para capturar o filme removido
+        root = rec_Remove(root, id, removedFilm);  // Atualiza a raiz da árvore e captura o filme removido
+        if (removedFilm[0] == null) {
+            throw new Exception("ID: " + id + " not found!");  // Lança uma exceção se o filme não for encontrado
+        }
+        return removedFilm[0];  // Retorna o filme removido
     }
 
-    private Node rec_Remove(Node root, long id) {
+    private Node rec_Remove(Node root, long id, Filme_IF[] removedFilm) {
         if (root == null) {
-            return root;
+            return null;  // Caso base: nó não encontrado
         }
+
         if (id < root.film.getID()) {
-            root.left = rec_Remove(root.left, id);
+            root.left = rec_Remove(root.left, id, removedFilm);  // Busca no lado esquerdo
         } else if (id > root.film.getID()) {
-            root.right = rec_Remove(root.right, id);
+            root.right = rec_Remove(root.right, id, removedFilm);  // Busca no lado direito
         } else {
+            // Filme encontrado
+            removedFilm[0] = root.film;  // Guarda o filme que será removido
+
+            // Caso 1: Nó com um único filho ou nenhum filho
             if (root.left == null) {
-                return root.right;
+                return root.right;  // Retorna o filho direito
             } else if (root.right == null) {
-                return root.left;
+                return root.left;  // Retorna o filho esquerdo
             }
-            root.film = minValue(root.right);
-            root.right = rec_Remove(root.right, root.film.getID());
+
+            // Caso 2: Nó com dois filhos
+            root.film = minValue(root.right);  // Substitui pelo menor filme da subárvore direita
+            root.right = rec_Remove(root.right, root.film.getID(), removedFilm);  // Remove o nó duplicado
         }
-        return root;
+        return root;  // Retorna o nó atualizado
     }
 
     private Filme_IF minValue(Node root) {
+
         Filme_IF minFilm = root.film;
         while (root.left != null) {
             minFilm = root.left.film;
@@ -52,16 +64,16 @@ public class BST implements BST_IF {
 
     private Node rec_Insert(Node root, Filme_IF film) {
         if (root == null) {
-            System.out.println("Inserido " + film + " Na raiz.");
+
             root = new Node(film);
             return root;
         }
-        if (film.compareTo(root.film) > 0) {
-            System.out.println("Inserindo " + film + " à esquerda de " + root.film);
+        if (film.getID() < root.film.getID()) {
             root.left = rec_Insert(root.left, film);
-        } else if (film.compareTo(root.film) < 0) {
-            System.out.println("Inserindo " + film + " à direita de " + root.film);
+
+        } else if (film.getID() > root.film.getID()) {
             root.right = rec_Insert(root.right, film);
+
         }
         return root;
     }
@@ -73,7 +85,30 @@ public class BST implements BST_IF {
 
     @Override
     public Filme_IF search(long id) throws Exception {
-        return null;
+        Filme_IF film = rec_Search(root, id);
+
+        if (film == null){
+            throw new Exception("Id: " + id + " not founded!");
+        }
+        return film;
+
+    }
+
+    private Filme_IF rec_Search(Node root, long id){
+        if (root == null){
+            return null;
+        }
+
+        if (root.film.getID() == id){
+            return root.film;
+        }
+
+        if (id < root.film.getID()){
+            return rec_Search(root.left, id);
+        }
+        else{
+            return rec_Search(root.right, id);
+        }
     }
 
     @Override
