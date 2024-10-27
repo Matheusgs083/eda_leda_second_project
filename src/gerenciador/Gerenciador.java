@@ -11,6 +11,7 @@ public class Gerenciador {
 
     public static final Scanner leitor = new Scanner(System.in);
     public static int menu;
+    public static final TabelaHash IDS = new TabelaHash(101);
 
     public static void gerenciador() throws Exception {
 
@@ -38,7 +39,7 @@ public class Gerenciador {
 
     public static void insereFilme(TabelaHash tabela, BST bst){
 
-        Filme filme = leFilme();
+        Filme_IF filme = leFilme();
 
         System.out.println("Escolha a estrutura para armazenar o filme: " +
                            "1 - BST" +
@@ -53,22 +54,18 @@ public class Gerenciador {
         }
     }
 
-    public static Filme leFilme(){
+    public static Filme_IF leFilme(){
 
-        Filme filme = new Filme();
 
         System.out.println("Nome: ");
-        filme.setNome(leitor.nextLine());
+        String nome = leitor.nextLine();
 
         System.out.println("Nota: ");
-        filme.setNota(leitor.nextInt());
+        int nota = leitor.nextInt();
 
         System.out.println("Ano: ");
-        filme.setAno(leitor.nextInt());
+        int ano = leitor.nextInt();
 
-        System.out.println("ID: ");
-        filme.setID(leitor.nextInt());
-
-        return filme;
+        return new Filme(nome, nota, ano, IDS);
     }
 }
