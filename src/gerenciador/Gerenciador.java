@@ -21,25 +21,44 @@ public class Gerenciador {
         label:
         while (true){
 
-            System.out.println("1 - Inserir filme." +
-                               "\n2 - Buscar filme." +
-                               "\n3 - Remover filme." +
-                               "\n4 - Printar filmes");
+            System.out.println("1 - Insert film." +
+                               "\n2 - Search film." +
+                               "\n3 - Remove film." +
+                               "\n4 - Print films");
 
             menu = leitor.nextInt();
 
             switch (menu) {
                 case 1:
-                    insereFilme(table, bst);
+                    insertFilm(bst, table);
+                case 2:
+                    searchFilm(bst, table);
+                case 3:
+                    removeFilm(bst,table);
+                case 4:
             }
         }
 
 
     }
 
-    public static void insereFilme(TabelaHash tabela, BST bst){
+    public static void searchFilm(BST bst, TabelaHash table) throws Exception {
 
-        Filme_IF filme = leFilme();
+        System.out.println("Inform the movie's ID: ");
+        long id = leitor.nextLong();
+
+        System.out.println("Inform the film's location:" +
+                           "\n1 - BST" +
+                           "\n2 - HashTable");
+
+        int option = leitor.nextInt();
+
+        if (option == 1){ bst.search(id);} else {table.search(id);}
+    }
+
+    public static void insertFilm(BST bst, TabelaHash tabela){
+
+        Filme_IF filme = readFilm();
 
         System.out.println("Escolha a estrutura para armazenar o filme: " +
                            "1 - BST" +
@@ -54,7 +73,7 @@ public class Gerenciador {
         }
     }
 
-    public static Filme_IF leFilme(){
+    public static Filme_IF readFilm(){
 
 
         System.out.println("Nome: ");
@@ -67,5 +86,30 @@ public class Gerenciador {
         int ano = leitor.nextInt();
 
         return new Filme(nome, nota, ano, IDS);
+    }
+
+    public static void removeFilm(BST bst, TabelaHash table) throws Exception {
+
+        System.out.println("Inform the film's ID that you want to remove: ");
+        long id = leitor.nextLong();
+
+        System.out.println("Inform the structure that the film is in:" +
+                           "\n1 - BST" +
+                           "\n2 - HashTable");
+
+        int option = leitor.nextInt();
+
+        if (option == 1){ bst.remove(id);} else {table.remove(id);}
+    }
+
+    public static void printFilm(BST bst, TabelaHash table){
+
+        System.out.println("Inform the structure you want to print: " +
+                           "\n 1 - BST" +
+                           "\n 2 - HashTable");
+
+        int option = leitor.nextInt();
+
+        if (option == 1){} else { table.print();}
     }
 }
