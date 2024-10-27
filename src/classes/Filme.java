@@ -22,13 +22,13 @@ public class Filme implements Filme_IF, Comparable<Filme_IF> {
         this.ID = ID;
     }
 
-    public Filme(){
+    public Filme(TabelaHash hash){
         ThreadLocalRandom rand = ThreadLocalRandom.current();
 
         this.nome = Titulos[rand.nextInt(Titulos.length)] + SubTitulos[rand.nextInt(SubTitulos.length)];
         this.ano = rand.nextInt(1980, 2025); // Gera um ano aleatório entre 1980 e 2024
         this.nota = rand.nextInt(1, 6); // Gera uma nota aleatória entre 1 e 5 (inclusive)
-        this.ID = ID_Generator.generateUniqueID();
+        this.ID = hash.generateUniqueID();
     }
 
     @Override

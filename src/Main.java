@@ -7,13 +7,14 @@ public class Main {
         try {
             // Cria a árvore binária de busca
             BST bst = new BST();
+            TabelaHash hash = new TabelaHash(101);
 
             // Criação de alguns filmes
-            Filme_IF filme1 = new Filme("Velozes e Furiosos", 4, 2001, 15);
-            Filme_IF filme2 = new Filme("O Senhor dos Anéis", 5, 2001, 10);
-            Filme_IF filme3 = new Filme("Matrix", 5, 1999, 20);
-            Filme_IF filme4 = new Filme("Star Wars", 4, 1977, 5);
-            Filme_IF filme5 = new Filme("Interstellar", 5, 2014, 30);
+            Filme_IF filme1 = new Filme(hash);
+            Filme_IF filme2 = new Filme(hash);
+            Filme_IF filme3 = new Filme(hash);
+            Filme_IF filme4 = new Filme(hash);
+            Filme_IF filme5 = new Filme(hash);
 
             // Inserindo filmes na árvore
             bst.insert(filme1);
@@ -25,25 +26,25 @@ public class Main {
             // Exibindo o tamanho da árvore
             System.out.println("Tamanho da árvore: " + bst.size());
 
-            // Buscando um filme
-            long searchId = 20;
-            Filme_IF searchedFilm = bst.search(searchId);
-            System.out.println("Filme encontrado: " + searchedFilm);
+//            // Buscando um filme
+//            long searchId = 20;
+//            Filme_IF searchedFilm = bst.search(searchId);
+//            System.out.println("Filme encontrado: " + searchedFilm);
+//
+//            // Removendo um filme
+//            long removeId = 10;
+//            Filme_IF removedFilm = bst.remove(removeId);
+//            System.out.println("Filme removido: " + removedFilm);
 
-            // Removendo um filme
-            long removeId = 10;
-            Filme_IF removedFilm = bst.remove(removeId);
-            System.out.println("Filme removido: " + removedFilm);
+//            // Tentando buscar um filme removido
+//            try {
+//                bst.search(removeId);
+//            } catch (Exception e) {
+//                System.out.println(e.getMessage()); // Exibindo a exceção
+//            }
 
-            // Tentando buscar um filme removido
-            try {
-                bst.search(removeId);
-            } catch (Exception e) {
-                System.out.println(e.getMessage()); // Exibindo a exceção
-            }
-
-            // Exibindo o tamanho da árvore após remoção
-            System.out.println("Tamanho da árvore após remoção: " + bst.size());
+//            // Exibindo o tamanho da árvore após remoção
+//            System.out.println("Tamanho da árvore após remoção: " + bst.size());
 
             // Exibindo todos os filmes na ordem
             Filme_IF[] allFilms = bst.order();
@@ -55,3 +56,5 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+}

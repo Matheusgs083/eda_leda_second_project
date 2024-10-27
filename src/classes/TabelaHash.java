@@ -3,6 +3,8 @@ package classes;
 import interfaces.Filme_IF;
 import interfaces.TabelaHash_IF;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class TabelaHash implements TabelaHash_IF {
 
     private Lista[] tabela;
@@ -85,4 +87,23 @@ public class TabelaHash implements TabelaHash_IF {
 
         return result;
     }
+
+    private boolean contains(long id) {
+        try {
+            return search(id) != null;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public long generateUniqueID(){
+        long ID;
+        do{
+            ID = ThreadLocalRandom.current().nextLong(1,10);
+        }
+        while(contains(ID));
+
+        return ID;
+    }
 }
+
