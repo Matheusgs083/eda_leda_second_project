@@ -110,6 +110,6 @@ public class Gerenciador {
 
         int option = leitor.nextInt();
 
-        if (option == 1){} else { table.print();}
+        if (option == 1){bst.print();} else { table.print();}
     }
 }

@@ -3,6 +3,8 @@ package classes;
 import interfaces.BST_IF;
 import interfaces.Filme_IF;
 
+import java.util.Scanner;
+
 public class BST implements BST_IF {
     Node root;
 
@@ -211,5 +213,45 @@ public class BST implements BST_IF {
         postOrderArray[index[0]++] = root.film;
         postOrder_aux(postOrderArray, root.right, index);
         postOrder_aux(postOrderArray, root.left, index);
+    }
+
+    public void print() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("""
+                Chose print method:
+                1- In Order
+                2- Pre Order
+                3- Post Order""");
+
+        int choice = scanner.nextInt();
+
+        switch (choice) {
+            case 1:
+                System.out.println("In Order:");
+                Filme_IF[] inOrderArray = order();
+                for (Filme_IF film : inOrderArray) {
+                    System.out.print(film);
+                }
+                System.out.println();
+                break;
+            case 2:
+                System.out.println("Pre Order");
+                Filme_IF[] preOrderArray = preOrder();
+                for (Filme_IF film : preOrderArray) {
+                    System.out.print(film);
+                }
+                System.out.println();
+                break;
+            case 3:
+                System.out.println("Post Order:");
+                Filme_IF[] postOrderArray = postOrder();
+                for (Filme_IF film : postOrderArray) {
+                    System.out.print(film);
+                }
+                System.out.println();
+                break;
+            default:
+                System.out.println("Invalid choice. Please try again.");
+        }
     }
 }
