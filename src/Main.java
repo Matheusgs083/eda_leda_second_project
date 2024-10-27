@@ -1,7 +1,12 @@
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 public class Main{
     public static void main(String[] args) throws Exception {
+=======
+import classes.*;
+import interfaces.*;
+>>>>>>> df0225b50ad3df1b24a52cb23229fb2aed54dd15
 =======
 import classes.*;
 import interfaces.*;
@@ -61,6 +66,7 @@ public class Main {
             e.printStackTrace();
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         System.out.println("IDs dos filmes disponíveis:");
         System.out.println(table.print());
@@ -73,5 +79,7 @@ public class Main {
         System.out.println(table.print());
     }
 }
+=======
+>>>>>>> df0225b50ad3df1b24a52cb23229fb2aed54dd15
 =======
 >>>>>>> df0225b50ad3df1b24a52cb23229fb2aed54dd15
