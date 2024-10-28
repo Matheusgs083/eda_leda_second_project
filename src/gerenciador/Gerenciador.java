@@ -21,21 +21,34 @@ public class Gerenciador {
         label:
         while (true){
 
-            System.out.println("1 - Insert film." +
-                               "\n2 - Search film." +
-                               "\n3 - Remove film." +
-                               "\n4 - Print films");
+            System.out.println("""
+                    1 - Insert film.
+                    2 - Search film.
+                    3 - Remove film.
+                    4 - Print films
+                    5 - Generate films (for tests)
+                    6 - Close program""");
 
             menu = leitor.nextInt();
 
             switch (menu) {
                 case 1:
                     insertFilm(bst, table);
+                    break;
                 case 2:
                     searchFilm(bst, table);
+                    break;
                 case 3:
-                    removeFilm(bst,table);
+                    removeFilm(bst, table);
+                    break;
                 case 4:
+                    printFilm(bst, table);
+                    break;
+                case 5:
+                    generateFilms(bst, table);
+                    break;
+                case 6:
+                    break  label;
             }
         }
 
@@ -44,12 +57,13 @@ public class Gerenciador {
 
     public static void searchFilm(BST bst, TabelaHash table) throws Exception {
 
-        System.out.println("Inform the movie's ID: ");
+        System.out.println("Inform the film's ID: ");
         long id = leitor.nextLong();
 
-        System.out.println("Inform the film's location:" +
-                           "\n1 - BST" +
-                           "\n2 - HashTable");
+        System.out.println("""
+                Select the structure to search in:
+                1 - BST
+                2 - HashTable""");
 
         int option = leitor.nextInt();
 
@@ -60,9 +74,10 @@ public class Gerenciador {
 
         Filme_IF filme = readFilm();
 
-        System.out.println("Escolha a estrutura para armazenar o filme: " +
-                           "1 - BST" +
-                           "2 - TabelaHash");
+        System.out.println("""
+                Select the structure to store the film:\s
+                1 - BST
+                2 - Hash Table""");
 
         int opcao = leitor.nextInt();
 
@@ -74,16 +89,17 @@ public class Gerenciador {
     }
 
     public static Filme_IF readFilm(){
-
+        Scanner leitorInt = new Scanner(System.in);
 
         System.out.println("Nome: ");
+        leitor.nextLine();
         String nome = leitor.nextLine();
 
         System.out.println("Nota: ");
-        int nota = leitor.nextInt();
+        int nota = leitorInt.nextInt();
 
         System.out.println("Ano: ");
-        int ano = leitor.nextInt();
+        int ano = leitorInt.nextInt();
 
         return new Filme(nome, nota, ano, IDS);
     }
@@ -93,9 +109,10 @@ public class Gerenciador {
         System.out.println("Inform the film's ID that you want to remove: ");
         long id = leitor.nextLong();
 
-        System.out.println("Inform the structure that the film is in:" +
-                           "\n1 - BST" +
-                           "\n2 - HashTable");
+        System.out.println("""
+                Inform the structure that the film is in:
+                1 - BST
+                2 - HashTable""");
 
         int option = leitor.nextInt();
 
@@ -104,12 +121,45 @@ public class Gerenciador {
 
     public static void printFilm(BST bst, TabelaHash table){
 
-        System.out.println("Inform the structure you want to print: " +
-                           "\n 1 - BST" +
-                           "\n 2 - HashTable");
+        System.out.println("""
+                Inform the structure you want to print:\s
+                 1 - BST
+                 2 - HashTable""");
 
         int option = leitor.nextInt();
 
         if (option == 1){bst.print();} else { table.print();}
+    }
+
+    public static void generateFilms(BST bst, TabelaHash table){
+
+
+        System.out.println("Enter the number of films to be generated: ");
+        int quantity = leitor.nextInt();
+
+        System.out.println("""
+                Enter the structure to store the films:\s
+                1 - BST
+                2 - Hash Table""");
+
+        int option = leitor.nextInt();
+
+        if (option == 1){
+
+            for (int i = 0; i < quantity; i++){
+
+                Filme film = new Filme(table);
+                bst.insert(film);
+
+            }
+        } else {
+
+            for (int i = 0; i < quantity; i++){
+
+                Filme film = new Filme(table);
+                table.insert(film);
+
+            }
+        }
     }
 }
