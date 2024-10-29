@@ -3,6 +3,9 @@ package classes;
 import interfaces.Filme_IF;
 import interfaces.TabelaHash_IF;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class TabelaHash implements TabelaHash_IF {
@@ -14,7 +17,7 @@ public class TabelaHash implements TabelaHash_IF {
 
         this.tabela = new Lista[capacidade];
 
-        for (int i = 0; i < capacidade; i++){
+        for (int i = 0; i < capacidade; i++) {
             tabela[i] = new Lista();
         }
 
@@ -32,7 +35,9 @@ public class TabelaHash implements TabelaHash_IF {
 
         Filme_IF removedFilm = tabela[index].remove(id);
 
-        if (removedFilm != null){size -= 1;}
+        if (removedFilm != null) {
+            size -= 1;
+        }
 
         return removedFilm;
     }
@@ -96,14 +101,46 @@ public class TabelaHash implements TabelaHash_IF {
         }
     }
 
-    public long generateUniqueID(){
+    public int getSize() {
+        return size;
+    }
+
+    public long generateUniqueID() {
         long ID;
-        do{  //Por algum motivo para aumentar o número de filmes inseridos na tabela hash tem que aumentar
-            ID = ThreadLocalRandom.current().nextLong(1,100); //o bound dessa variavel.
+        do {  //Por algum motivo para aumentar o número de filmes inseridos na tabela hash tem que aumentar
+            ID = ThreadLocalRandom.current().nextLong(1, 1000000); //o bound dessa variavel.
         }
-        while(contains(ID));
+        while (contains(ID));
 
         return ID;
     }
-}
 
+    public String printOrdered() {
+        List<Long> ids = new ArrayList<>();
+
+        // Coleta todos os IDs
+        for (Lista lista : tabela) {
+            Node current = lista.getHead();
+            while (current != null) {
+                ids.add(current.film.getID());
+                current = current.right;
+            }
+        }
+
+        // Ordena os IDs
+        Collections.sort(ids);
+
+        // Monta a string ordenada
+        StringBuilder result = new StringBuilder();
+        for (long id : ids) {
+            result.append(id).append(", ");
+        }
+
+        // Remove a última vírgula e espaço, se existirem
+        if (result.length() > 0) {
+            result.setLength(result.length() - 2);
+        }
+
+        return result.toString();
+    }
+}
