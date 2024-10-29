@@ -98,8 +98,8 @@ public class TabelaHash implements TabelaHash_IF {
 
     public long generateUniqueID(){
         long ID;
-        do{
-            ID = ThreadLocalRandom.current().nextLong(1,10);
+        do{  //Por algum motivo para aumentar o número de filmes inseridos na tabela hash tem que aumentar
+            ID = ThreadLocalRandom.current().nextLong(1,100); //o bound dessa variavel.
         }
         while(contains(ID));
 

@@ -15,11 +15,11 @@ public class Gerenciador {
 
     public static void gerenciador() throws Exception {
 
-        TabelaHash table = new TabelaHash(0);
+        TabelaHash table = new TabelaHash(10);
         BST bst = new BST();
 
         label:
-        while (true){
+        while (true) {
 
             System.out.println("""
                     1 - Insert film.
@@ -48,7 +48,7 @@ public class Gerenciador {
                     generateFilms(bst, table);
                     break;
                 case 6:
-                    break  label;
+                    break label;
             }
         }
 
@@ -67,10 +67,14 @@ public class Gerenciador {
 
         int option = leitor.nextInt();
 
-        if (option == 1){ bst.search(id);} else {table.search(id);}
+        if (option == 1) {
+            bst.search(id);
+        } else {
+            table.search(id);
+        }
     }
 
-    public static void insertFilm(BST bst, TabelaHash tabela){
+    public static void insertFilm(BST bst, TabelaHash table) {
 
         Filme_IF filme = readFilm();
 
@@ -81,14 +85,14 @@ public class Gerenciador {
 
         int opcao = leitor.nextInt();
 
-        if (opcao == 1 ){
+        if (opcao == 1) {
             bst.insert(filme);
         } else {
-            tabela.insert(filme);
+            table.insert(filme);
         }
     }
 
-    public static Filme_IF readFilm(){
+    public static Filme_IF readFilm() {
         Scanner leitorInt = new Scanner(System.in);
 
         System.out.println("Nome: ");
@@ -116,10 +120,14 @@ public class Gerenciador {
 
         int option = leitor.nextInt();
 
-        if (option == 1){ bst.remove(id);} else {table.remove(id);}
+        if (option == 1) {
+            bst.remove(id);
+        } else {
+            table.remove(id);
+        }
     }
 
-    public static void printFilm(BST bst, TabelaHash table){
+    public static void printFilm(BST bst, TabelaHash table) {
 
         System.out.println("""
                 Inform the structure you want to print:\s
@@ -128,38 +136,40 @@ public class Gerenciador {
 
         int option = leitor.nextInt();
 
-        if (option == 1){bst.print();} else { table.print();}
-    }
-
-    public static void generateFilms(BST bst, TabelaHash table){
-
-
-        System.out.println("Enter the number of films to be generated: ");
-        int quantity = leitor.nextInt();
-
-        System.out.println("""
-                Enter the structure to store the films:\s
-                1 - BST
-                2 - Hash Table""");
-
-        int option = leitor.nextInt();
-
-        if (option == 1){
-
-            for (int i = 0; i < quantity; i++){
-
-                Filme film = new Filme(table);
-                bst.insert(film);
-
-            }
+        if (option == 1) {
+            bst.print();
         } else {
-
-            for (int i = 0; i < quantity; i++){
-
-                Filme film = new Filme(table);
-                table.insert(film);
-
-            }
+            System.out.println(table.print());
         }
     }
-}
+            public static void generateFilms (BST bst, TabelaHash table){
+
+
+                System.out.println("Enter the number of films to be generated: ");
+                int quantity = leitor.nextInt();
+
+                System.out.println("""
+                        Enter the structure to store the films:\s
+                        1 - BST
+                        2 - Hash Table""");
+
+                int option = leitor.nextInt();
+
+                if (option == 1) {
+
+                    for (int i = 0; i < quantity; i++) {
+
+                        Filme film = new Filme(table);
+                        bst.insert(film);
+
+                    }
+                } else {
+
+                    for (int i = 0; i < quantity; i++) {
+
+                        Filme film = new Filme(table);
+                        table.insert(film);
+                    }
+                }
+            }
+    }
