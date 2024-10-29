@@ -13,13 +13,22 @@ public class BST implements BST_IF {
     }
 
     @Override
-    public Filme_IF remove(long id) throws Exception {
-        Filme_IF[] removedFilm = new Filme_IF[1];  // Usamos um array para capturar o filme removido
-        root = rec_Remove(root, id, removedFilm);  // Atualiza a raiz da árvore e captura o filme removido
-        if (removedFilm[0] == null) {
-            throw new Exception("ID: " + id + " not found!");  // Lança uma exceção se o filme não for encontrado
+    public Filme_IF remove(long id) {
+        Filme_IF[] removedFilm = new Filme_IF[1];
+
+        try {
+            root = rec_Remove(root, id, removedFilm);
+
+            if (removedFilm[0] == null) {
+                throw new Exception("ID: " + id + " not found!");
+            }
+
+            return removedFilm[0];
+
+        } catch (Exception e) {
+            System.out.println("Error while removing film: " + e.getMessage());
+            return null;
         }
-        return removedFilm[0];  // Retorna o filme removido
     }
 
     private Node rec_Remove(Node root, long id, Filme_IF[] removedFilm) {
@@ -89,11 +98,15 @@ public class BST implements BST_IF {
     public Filme_IF search(long id) throws Exception {
         Filme_IF film = rec_Search(root, id);
 
-        if (film == null){
-            throw new Exception("Id: " + id + " not founded!");
+        try {
+            if (film == null) {
+                throw new Exception("Id: " + id + " not founded!");
+            }
+            return film;
+        }catch (Exception e){
+            System.out.println("Error: " + e.getMessage());
+            return null;
         }
-        return film;
-
     }
 
     private Filme_IF rec_Search(Node root, long id){
@@ -215,43 +228,52 @@ public class BST implements BST_IF {
         postOrder_aux(postOrderArray, root.left, index);
     }
 
-    public void print() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("""
-                Chose print method:
-                1- In Order
-                2- Pre Order
-                3- Post Order""");
+    public void print() throws Exception {
 
-        int choice = scanner.nextInt();
+        try {
+            if (isEmpty()) {
+                throw new Exception("Empty Tree!");
+            }
 
-        switch (choice) {
-            case 1:
-                System.out.println("In Order:");
-                Filme_IF[] inOrderArray = order();
-                for (Filme_IF film : inOrderArray) {
-                    System.out.print(film);
-                }
-                System.out.println();
-                break;
-            case 2:
-                System.out.println("Pre Order");
-                Filme_IF[] preOrderArray = preOrder();
-                for (Filme_IF film : preOrderArray) {
-                    System.out.print(film);
-                }
-                System.out.println();
-                break;
-            case 3:
-                System.out.println("Post Order:");
-                Filme_IF[] postOrderArray = postOrder();
-                for (Filme_IF film : postOrderArray) {
-                    System.out.print(film);
-                }
-                System.out.println();
-                break;
-            default:
-                System.out.println("Invalid choice. Please try again.");
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("""
+                    Chose print method:
+                    1- In Order
+                    2- Pre Order
+                    3- Post Order""");
+
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("In Order:");
+                    Filme_IF[] inOrderArray = order();
+                    for (Filme_IF film : inOrderArray) {
+                        System.out.print("\n" + film);
+                    }
+                    System.out.println();
+                    break;
+                case 2:
+                    System.out.print("Pre Order");
+                    Filme_IF[] preOrderArray = preOrder();
+                    for (Filme_IF film : preOrderArray) {
+                        System.out.print("\n" + film);
+                    }
+                    System.out.println();
+                    break;
+                case 3:
+                    System.out.print("Post Order:");
+                    Filme_IF[] postOrderArray = postOrder();
+                    for (Filme_IF film : postOrderArray) {
+                        System.out.print("\n" + film);
+                    }
+                    System.out.println();
+                    break;
+                default:
+                    System.out.print("Invalid choice. Please try again.\n");
+            }
+        }catch (Exception e){
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }

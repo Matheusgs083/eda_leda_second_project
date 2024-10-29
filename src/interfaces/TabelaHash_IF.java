@@ -13,7 +13,7 @@ public interface TabelaHash_IF  {
 
     public Filme_IF search(long id) throws Exception;
 
-    public String print();
+    public String print() throws Exception;
 
 	/*
 	 OBSERVACAO:

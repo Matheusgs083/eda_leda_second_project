@@ -72,25 +72,34 @@ public class TabelaHash implements TabelaHash_IF {
     }
 
     @Override
-    public String print() {
-        String result = "";
+    public String print() throws Exception {
 
-        for (int i = 0; i < tabela.length; i++) {
-            result += i + ": ";
-            if (!tabela[i].isEmpty()) {
-                Node current = tabela[i].getHead();
-                while (current != null) {
-                    result += current.film.getID(); // Assume que Filme_IF tem um método getID()
-                    if (current.right != null) {
-                        result += ", ";
-                    }
-                    current = current.right;
-                }
+        try {
+            if (isEmpty()) {
+                throw new Exception("Empty HashTable!");
             }
-            result += "\n";
-        }
 
-        return result;
+            String result = "";
+
+            for (int i = 0; i < tabela.length; i++) {
+                result += i + ": ";
+                if (!tabela[i].isEmpty()) {
+                    Node current = tabela[i].getHead();
+                    while (current != null) {
+                        result += current.film.getID(); // Assume que Filme_IF tem um método getID()
+                        if (current.right != null) {
+                            result += ", ";
+                        }
+                        current = current.right;
+                    }
+                }
+                result += "\n";
+            }
+
+            return result;
+        }catch (Exception e){
+            return ("Error: " + e.getMessage());
+        }
     }
 
     private boolean contains(long id) {
@@ -108,7 +117,7 @@ public class TabelaHash implements TabelaHash_IF {
     public long generateUniqueID() {
         long ID;
         do {  //Por algum motivo para aumentar o número de filmes inseridos na tabela hash tem que aumentar
-            ID = ThreadLocalRandom.current().nextLong(1, 1000000); //o bound dessa variavel.
+            ID = ThreadLocalRandom.current().nextLong(1, 100); //o bound dessa variavel.
         }
         while (contains(ID));
 

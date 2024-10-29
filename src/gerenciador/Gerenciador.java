@@ -57,20 +57,58 @@ public class Gerenciador {
 
     public static void searchFilm(BST bst, TabelaHash table) throws Exception {
 
-        System.out.println("Inform the film's ID: ");
-        long id = leitor.nextLong();
+        if (bst.isEmpty() && table.isEmpty()) {
+            System.out.println("Both structures are empty. No films to remove.");
+            return;
+        }
 
-        System.out.println("""
+        long id;
+        Filme_IF film;
+
+        while(true){
+
+            System.out.println("""
                 Select the structure to search in:
                 1 - BST
-                2 - HashTable""");
+                2 - HashTable
+                3 - Back to Menu""");
 
-        int option = leitor.nextInt();
+            int choice = leitor.nextInt();
+            if (choice == 3){break;}
 
-        if (option == 1) {
-            bst.search(id);
-        } else {
-            table.search(id);
+            switch (choice){
+                case 1:
+                    if(bst.isEmpty()){
+                        System.out.println("Empty Tree");
+                    }
+                    else {
+                        System.out.println("Inform the film's ID that you want to search: ");
+                        id = leitor.nextLong();
+                        film = bst.search(id);
+                        if (film == null) {
+                            break;
+                        }
+                        System.out.println("Film ID: " + id  + " founded: " + film);
+                    }
+                    break;
+                case 2:
+                    if(table.isEmpty()){
+                        System.out.println("Empty Hash Table");
+                    }
+                    else {
+                        System.out.println("Inform the film's ID that you want to search: ");
+                        id = leitor.nextLong();
+                        film = table.search(id);
+                        if (film == null) {
+                            break;
+                        }
+                        System.out.println("Film ID: " + id  + " founded: " + film);
+                    }
+                    break;
+                default:
+                    System.out.println("Invalid option. Please try again.");
+
+            }
         }
     }
 
@@ -79,7 +117,7 @@ public class Gerenciador {
         Filme_IF filme = readFilm();
 
         System.out.println("""
-                Select the structure to store the film:\s
+                Select the structure to store the film:
                 1 - BST
                 2 - Hash Table""");
 
@@ -93,55 +131,117 @@ public class Gerenciador {
     }
 
     public static Filme_IF readFilm() {
-        Scanner leitorInt = new Scanner(System.in);
 
-        System.out.println("Nome: ");
+        System.out.println("Name: ");
         leitor.nextLine();
-        String nome = leitor.nextLine();
+        String name = leitor.nextLine();
 
-        System.out.println("Nota: ");
-        int nota = leitorInt.nextInt();
+        System.out.println("Rating: ");
+        int rate = leitor.nextInt();
+        while ( rate < 1 || rate > 5){
+            System.out.println("""
+                    The rating only goes from 1 to 5.
+                    Try again!
+                    Rating:""");
 
-        System.out.println("Ano: ");
-        int ano = leitorInt.nextInt();
+            rate = leitor.nextInt();
+        }
 
-        return new Filme(nome, nota, ano, IDS);
+        System.out.println("Year: ");
+        int year = leitor.nextInt();
+
+        return new Filme(name, rate, year, IDS);
     }
 
     public static void removeFilm(BST bst, TabelaHash table) throws Exception {
 
-        System.out.println("Inform the film's ID that you want to remove: ");
-        long id = leitor.nextLong();
+        if (bst.isEmpty() && table.isEmpty()) {
+            System.out.println("Both structures are empty. No films to remove.");
+            return;
+        }
+        Filme_IF film;
+        while (true) {
+            System.out.println("""
+                    Inform the structure that the film is in:
+                    1 - BST
+                    2 - HashTable
+                    3 - Back to Menu""");
 
-        System.out.println("""
-                Inform the structure that the film is in:
-                1 - BST
-                2 - HashTable""");
 
-        int option = leitor.nextInt();
+            int choice = leitor.nextInt();
+            if (choice == 3){break;}
 
-        if (option == 1) {
-            bst.remove(id);
-        } else {
-            table.remove(id);
+            long id;
+
+            switch (choice) {
+
+                case 1:
+                    if(bst.isEmpty()){
+                        System.out.println("Empty Tree");
+                    }
+                    else {
+                        System.out.println("Inform the film's ID that you want to remove: ");
+                        id = leitor.nextLong();
+                        film = bst.remove(id);
+                        if (film == null) {
+                            break;
+                        }
+                        System.out.println("Film: " + film + " removed.");
+                    }
+                    break;
+                case 2:
+                    if(table.isEmpty()){
+                        System.out.println("Empty Hash Table");
+                    }
+                    else {
+                        System.out.println("Inform the film's ID that you want to remove: ");
+                        id = leitor.nextLong();
+                        film = table.remove(id);
+                        if (film == null) {
+                            break;
+                        }
+                        System.out.println("Film: " + film + " removed.");
+                    }
+                    break;
+                default:
+                    System.out.println("Invalid option. Please try again.");
+            }
         }
     }
 
-    public static void printFilm(BST bst, TabelaHash table) {
+    public static void printFilm(BST bst, TabelaHash table) throws Exception {
 
-        System.out.println("""
+        if (bst.isEmpty() && table.isEmpty()) {
+            System.out.println("Both structures are empty. No films to remove.");
+            return;
+        }
+
+        label:
+        while(true){
+            System.out.println("""
                 Inform the structure you want to print:\s
                  1 - BST
-                 2 - HashTable""");
+                 2 - HashTable
+                 3 - Back to Menu""");
 
-        int option = leitor.nextInt();
+            int option = leitor.nextInt();
 
-        if (option == 1) {
-            bst.print();
-        } else {
-            System.out.println(table.print());
+            switch (option){
+                case 1:
+                    bst.print();
+                    break;
+                case 2:
+                    System.out.println(table.print());
+                    break;
+                case 3:
+                    break label;
+                default:
+                    System.out.println("Invalid option. Please try again.");
+            }
         }
     }
+
+
             public static void generateFilms (BST bst, TabelaHash table){
 
 
