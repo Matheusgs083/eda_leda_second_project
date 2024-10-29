@@ -22,6 +22,13 @@ public class Filme implements Filme_IF, Comparable<Filme_IF> {
         this.ID = hash.generateUniqueID();
     }
 
+    public Filme(String nome, int nota, int ano, long id) {
+        this.nome = nome;
+        this.nota = nota;
+        this.ano = ano;
+        this.ID = id;
+    }
+
     public Filme(TabelaHash hash){
         ThreadLocalRandom rand = ThreadLocalRandom.current();
 
