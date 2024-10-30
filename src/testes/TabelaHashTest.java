@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TabelaHashTest {
+public class TabelaHashTest  {
     private TabelaHash tabela;
 
     @BeforeEach
