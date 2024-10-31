@@ -67,9 +67,9 @@ public class BSTTest {
 
     @Test
     void testExibirFilmes() {
-        Filme filme1 = new Filme("Filme 1", 10, 1999, 0);
-        Filme filme2 = new Filme("Filme 2", 5, 2020, 1);
-        Filme filme3 = new Filme("Filme 3", 10, 2010, 2);
+        Filme_IF filme1 = new Filme("Filme 1", 10, 1999, 0);
+        Filme_IF filme2 = new Filme("Filme 2", 5, 2020, 1);
+        Filme_IF filme3 = new Filme("Filme 3", 10, 2010, 2);
 
         bst.insert(filme1);
         bst.insert(filme2);
@@ -80,9 +80,9 @@ public class BSTTest {
         List<Filme_IF> filmesExibidos = Arrays.asList(filmesExibidosArray);
 
         assertEquals(3, filmesExibidos.size());
-        assertEquals("Filme 3", filmesExibidos.get(0).getNome(), "Primeiro filme deve ser o Filme 1.");
+        assertEquals("Filme 1", filmesExibidos.get(0).getNome(), "Primeiro filme deve ser o Filme 1.");
         assertEquals("Filme 2", filmesExibidos.get(1).getNome(), "Segundo filme deve ser o Filme 2.");
-        assertEquals("Filme 1", filmesExibidos.get(2).getNome(), "Terceiro filme deve ser o Filme 3.");
+        assertEquals("Filme 3", filmesExibidos.get(2).getNome(), "Terceiro filme deve ser o Filme 3.");
     }
 
 

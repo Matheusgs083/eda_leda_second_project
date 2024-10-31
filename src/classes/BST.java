@@ -205,9 +205,9 @@ public class BST implements BST_IF {
         if (root == null) {
             return;
         }
-        Order_aux(OrderArray, root.right, index);
-        OrderArray[index[0]++] = root.film;
         Order_aux(OrderArray, root.left, index);
+        OrderArray[index[0]++] = root.film;
+        Order_aux(OrderArray, root.right, index);
     }
 
 
@@ -223,9 +223,10 @@ public class BST implements BST_IF {
         if (root == null) {
             return;
         }
-        postOrderArray[index[0]++] = root.film;
-        postOrder_aux(postOrderArray, root.right, index);
         postOrder_aux(postOrderArray, root.left, index);
+        postOrder_aux(postOrderArray, root.right, index);
+        postOrderArray[index[0]++] = root.film;
+
     }
 
     public void print() throws Exception {
