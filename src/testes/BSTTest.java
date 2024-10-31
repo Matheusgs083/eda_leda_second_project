@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class BSTTest {
     private BST bst;
-    private Filme filme1, filme2, filme3;
 
     @BeforeEach
     public void setUp() {
