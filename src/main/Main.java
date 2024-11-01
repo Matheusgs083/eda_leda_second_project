@@ -1,9 +1,6 @@
 package main;
 
 
-import classes.*;
-import interfaces.*;
-
 import static gerenciador.Gerenciador.gerenciador;
 
 public class Main{
