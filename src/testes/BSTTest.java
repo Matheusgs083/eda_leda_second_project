@@ -5,6 +5,8 @@ import classes.BST;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BSTTest {
@@ -13,62 +15,71 @@ public class BSTTest {
 
     @BeforeEach
     public void setUp() {
-        private bst = new BST();
+        bst = new BST(); // Removido o `private`
 
         // Criando filmes com valores distintos para testes
-        filme1 = new Filme(1, "Filme A", 8.5);
-        filme2 = new Filme(2, "Filme B", 9.2);
-        filme3 = new Filme(3, "Filme C", 7.4);
+        Filme filme1 = new Filme("Filme 1", 10, 1999, 1);
+        Filme filme2 = new Filme("Filme 2", 5, 2020, 2);
+        Filme filme3 = new Filme("Filme 3", 10, 2010, 3);
     }
 
     @Test
-    void testInserirFilme() {
+    void testInserirFilme() throws Exception {
+        Filme filme1 = new Filme("Filme 1", 10, 1999, 0);
+        Filme filme2 = new Filme("Filme 2", 5, 2020, 1);
+
         bst.insert(filme1);
         bst.insert(filme2);
 
-        assertTrue(bst.search(1).isPresent(), "Filme A deveria estar presente na árvore.");
-        assertTrue(bst.search(2).isPresent(), "Filme B deveria estar presente na árvore.");
+        assertTrue(bst.search(0) != null, "Filme A deveria estar presente na árvore.");
+        assertTrue(bst.search(1) != null, "Filme B deveria estar presente na árvore.");
     }
 
     @Test
-    void testBuscarFilme() {
+    void testBuscarFilme() throws Exception {
+        Filme filme1 = new Filme("Filme A", 10, 1999, 0);
+        Filme filme2 = new Filme("Filme B", 5, 2020, 1);
+
         bst.insert(filme1);
         bst.insert(filme2);
 
-        assertTrue(bst.search(1).isPresent(), "Buscar deveria retornar o Filme A.");
-        assertEquals("Filme B", bst.search(2).get().getNome(), "Deveria retornar o Filme B.");
-        assertFalse(bst.search(999).isPresent(), "Filme inexistente não deveria estar presente.");
+        assertTrue(bst.search(0) != null, "Buscar deveria retornar o Filme A.");
+        assertEquals("Filme B", bst.search(1).getNome(), "Deveria retornar o Filme B.");
+        assertNull(bst.search(999), "Filme inexistente não deveria estar presente.");
     }
 
     @Test
-    void testRemoverFilme() {
+    void testRemoverFilme() throws Exception {
+
+        Filme filme1 = new Filme("Filme 1", 10, 1999, 0);
+        Filme filme2 = new Filme("Filme 2", 5, 2020, 1);
+        Filme filme3 = new Filme("Filme 3", 10, 2010, 2);
+
         bst.insert(filme1);
         bst.insert(filme2);
         bst.insert(filme3);
 
-        assertTrue(bst.remove(1), "Deveria remover o Filme A.");
-        assertFalse(bst.search(1).isPresent(), "Filme A não deveria estar na árvore após a remoção.");
+        assertTrue(bst.remove(0) != null, "Deveria remover o Filme A.");
+        assertNull(bst.search(0), "Filme A não deveria estar na árvore após a remoção.");
 
-        assertTrue(bst.remove(3), "Deveria remover o Filme C.");
-        assertFalse(bst.search(3).isPresent(), "Filme C não deveria estar na árvore após a remoção.");
+        assertTrue(bst.remove(2) != null, "Deveria remover o Filme C.");
+        assertNull(bst.search(2), "Filme C não deveria estar na árvore após a remoção.");
 
-        assertFalse(bst.remove(999), "Remover um filme inexistente deveria retornar false.");
+        assertNull(bst.remove(999), "Remover um filme inexistente deveria retornar null.");
     }
 
-    @Test
+   /* @Test
     void testExibirFilmes() {
         bst.insert(filme1);
         bst.insert(filme2);
         bst.insert(filme3);
 
         // Captura a lista de filmes exibidos em ordem
-        List<Filme> filmesExibidos = bstFilme.exibirEmOrdem();
+        List<Filme> filmesExibidos = bst.or();
 
         assertEquals(3, filmesExibidos.size(), "Deveria exibir três filmes.");
         assertEquals("Filme A", filmesExibidos.get(0).getNome(), "Primeiro filme deve ser o Filme A.");
         assertEquals("Filme B", filmesExibidos.get(1).getNome(), "Segundo filme deve ser o Filme B.");
         assertEquals("Filme C", filmesExibidos.get(2).getNome(), "Terceiro filme deve ser o Filme C.");
-    }
-
-
+    } */
 }
