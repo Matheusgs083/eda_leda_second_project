@@ -15,10 +15,6 @@ public class TabelaHashTest  {
         tabela = new TabelaHash(10); // Capacidade de 10
     }
 
-    /* Seguindo a ideia tradicional dos testes JUnit, visamos ter impressões silenciosas no console
-       quando a execução ocorre como o esperado, nada é impresso, e quando não recebemos mensagens de erro.
-     */
-
     @Test
     public void testInserirFilme() {
         Filme filme = new Filme("Filme 1", 4, 2022, tabela);
